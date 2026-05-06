@@ -42,17 +42,22 @@ export const SearchView = () => {
           <button
             key={type}
             onClick={() => setSearchType(type)}
-            className={searchType === type ? 'bg-white text-black px-4 py-2 rounded-full' : 'bg-gray-700 text-white px-4 py-2 rounded-full'}
+            className={`px-4 py-2 rounded-full transition-all duration-300 hover:shadow-[0_0_15px_#4a7c59] ${
+              searchType === type ? 'bg-[#4a7c59] text-white' : 'bg-white text-[#4a7c59] border border-[#4a7c59]'
+            }`}
           >
             {type.charAt(0).toUpperCase() + type.slice(1)}
           </button>
         ))}
       </div>
-      <ImageGrid results={gridData} onClick={(id) => navigate(searchType === 'person' ? `/person/${id}` : searchType === 'movie' ? `/movies/${id}` : `/tv/${id}`)} />
+      <ImageGrid
+        results={gridData}
+        onClick={(id) => navigate(searchType === 'person' ? `/person/${id}` : searchType === 'movie' ? `/movies/${id}` : `/tv/${id}`)}
+      />
       {data?.results?.length ? (
         <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
       ) : (
-        <p className="text-center text-gray-400">No search results found</p>
+        <p className="text-center text-[#4a7c59]">No search results found</p>
       )}
     </section>
   );

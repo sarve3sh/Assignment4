@@ -18,13 +18,13 @@ const CATEGORY_TITLES: Record<string, string> = {
   top_rated: 'Top Rated',
   on_the_air: 'On The Air',
 };
+
 export const TelevisionView = () => {
   const { category } = useParams();
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
 
   const endpoint = CATEGORY_ENDPOINTS[category ?? 'airing_today'];
-  const title = CATEGORY_TITLES[category ?? 'airing_today'];
   const { data } = useTmdb<TvShowsResponse>(endpoint, { page }, [page, category]);
 
   const gridData = (data?.results ?? []).map((result) => ({
@@ -33,18 +33,18 @@ export const TelevisionView = () => {
     primaryText: result.name,
   }));
 
-  if (!data) {
-    return <p className="text-center text-gray-400">Loading...</p>;
-  }
+  if (!data) return <p className="text-center text-[#4a7c59]">Loading...</p>;
 
   return (
     <section className="max-w-[1200px] mx-auto p-5 space-y-5">
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         {Object.entries(CATEGORY_TITLES).map(([key, label]) => (
           <button
             key={key}
             onClick={() => navigate(`/tv/category/${key}`)}
-            className={category === key ? 'bg-white text-black px-4 py-2 rounded-full' : 'bg-gray-700 text-white px-4 py-2 rounded-full'}
+            className={`px-4 py-2 rounded-full transition-all duration-300 hover:shadow-[0_0_15px_#4a7c59] ${
+              category === key ? 'bg-[#4a7c59] text-white' : 'bg-white text-[#4a7c59] border border-[#4a7c59]'
+            }`}
           >
             {label}
           </button>

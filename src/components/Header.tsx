@@ -14,14 +14,14 @@ export const Header = () => {
 
   return (
     <header>
-      <nav className="flex gap-4 p-4 bg-gray-800 items-center">
-        <h1 className="text-2xl font-bold text-white-900">TMDB Explorer</h1>
+      <nav className="flex gap-4 p-4 bg-[#4a7c59] items-center shadow-lg">
+        <h1 className="text-2xl font-bold text-white">TMDB Explorer</h1>
         <Link to="/movies/category/now_playing">Movies</Link>
         <Link to="/tv/category/airing_today">TV</Link>
         <Link to="/trending">Trending</Link>
         <Link to="/genre/28">Genre</Link>
         <input
-          className="ml-auto bg-gray-700 text-white px-4 py-2 rounded-lg"
+          className="ml-auto bg-white/20 text-white placeholder-white/70 px-4 py-2 rounded-lg border border-white/30 focus:outline-none focus:border-white"
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
