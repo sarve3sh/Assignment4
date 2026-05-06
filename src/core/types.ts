@@ -51,3 +51,41 @@ export type SearchResponse = {
   total_pages: number;
   total_results: number;
 };
+export type TvShowsResponse = {
+  results: Array<{
+    id: number;
+    name: string;
+    poster_path: string;
+  }>;
+  total_pages: number;
+};
+
+export type TvShowResponse = {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string;
+  first_air_date: string;
+  vote_average: number;
+  number_of_seasons: number;
+  seasons: Array<{
+    id: number;
+    name: string;
+    season_number: number;
+    episode_count: number;
+    poster_path: string | null;
+  }>;
+};
+export type SeasonResponse = {
+  id: number;
+  name: string;
+  episodes: Array<{
+    id: number;
+    name: string;
+    episode_number: number;
+    overview: string;
+    air_date: string;
+    still_path: string | null;
+  }>;
+};
