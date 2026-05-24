@@ -12,7 +12,7 @@ const SEARCH_ENDPOINTS: Record<string, string> = {
 export const SearchView = () => {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState<number>(1);
-  const [searchType, setSearchType] = useState('person');
+  const [searchType, setSearchType] = useState('movie');
   const location = useLocation();
   const navigate = useNavigate();
   const debouncedQuery = useDebounce(query, 500);
@@ -21,7 +21,9 @@ export const SearchView = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const q = params.get('q');
+    const type = params.get('type');
     if (q) setQuery(q);
+    if (type) setSearchType(type);
   }, [location.search]);
 
   useEffect(() => {
@@ -36,20 +38,6 @@ export const SearchView = () => {
 
   return (
     <section className="max-w-[1200px] mx-auto p-10 space-y-5">
-      <SearchBar value={query} onChange={setQuery} />
-      <div className="flex gap-2">
-        {['person', 'movie', 'tv'].map((type) => (
-          <button
-            key={type}
-            onClick={() => setSearchType(type)}
-            className={`px-4 py-2 rounded-full transition-all duration-300 hover:shadow-[0_0_15px_#4a7c59] ${
-              searchType === type ? 'bg-[#4a7c59] text-white' : 'bg-white text-[#4a7c59] border border-[#4a7c59]'
-            }`}
-          >
-            {type.charAt(0).toUpperCase() + type.slice(1)}
-          </button>
-        ))}
-      </div>
       <ImageGrid
         results={gridData}
         onClick={(id) => navigate(searchType === 'person' ? `/person/${id}` : searchType === 'movie' ? `/movies/${id}` : `/tv/${id}`)}

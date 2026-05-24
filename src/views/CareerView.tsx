@@ -1,7 +1,7 @@
-import { PERSON_ENDPOINT } from '@/core/constants';
+import { ImageGrid } from '@/components';
+import { IMAGE_BASE_URL, PERSON_ENDPOINT } from '@/core/constants';
 import { useTmdb } from '@/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
-import { IMAGE_BASE_URL } from '@/core/constants';
 
 export const CareerView = () => {
   const { id } = useParams();
@@ -10,14 +10,17 @@ export const CareerView = () => {
 
   if (!data) return <p>Loading...</p>;
 
+  const gridData = data.cast.map((role: any) => ({
+    id: role.id,
+    imagePath: role.poster_path,
+    primaryText: role.title,
+    secondaryText: role.release_date?.slice(0, 4),
+  }));
+
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">Career</h2>
-      {data.cast.map((role: any) => (
-        <div key={role.id} className="cursor-pointer" onClick={() => navigate(`/movies/${role.id}`)}>
-          <p>{role.title} ({role.release_date?.slice(0, 4)})</p>
-        </div>
-      ))}
+      <ImageGrid results={gridData} onClick={(id) => navigate(`/movies/${id}`)} />
     </div>
   );
 };

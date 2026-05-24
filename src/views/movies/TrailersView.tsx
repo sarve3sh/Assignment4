@@ -8,13 +8,15 @@ export const TrailersView = () => {
 
   if (!data) return <p>Loading...</p>;
 
+  const trailers = data.results.filter((v: any) => v.type === 'Trailer' && v.site === 'YouTube').slice(0, 2);
+
   return (
-    <div className="space-y-4">
-      {data.results.map((video: any) => (
+    <div className="grid grid-cols-2 gap-4">
+      {trailers.map((video: any) => (
         <div key={video.key}>
-          <p className="font-bold">{video.name}</p>
+          <p className="font-bold mb-2">{video.name}</p>
           <iframe
-            className="w-full rounded-xl"
+            className="w-full aspect-video rounded-xl"
             src={`https://www.youtube.com/embed/${video.key}`}
             allowFullScreen
           />
